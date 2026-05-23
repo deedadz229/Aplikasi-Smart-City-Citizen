@@ -515,7 +515,9 @@
                 <nav class="nav" aria-label="Navigasi utama">
                     <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}">Dashboard</a>
                     <a href="{{ url('/warga') }}" class="{{ request()->is('warga') ? 'active' : '' }}">Data Warga</a>
+                    <a href="{{ url('/berita-kota') }}" class="{{ request()->is('berita-kota') ? 'active' : '' }}">Berita Kota</a>
                 </nav>
+                
             </div>
         </header>
 
