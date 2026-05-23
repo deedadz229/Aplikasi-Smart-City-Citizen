@@ -13,3 +13,7 @@ Route::get('/', function () {
 Route::get('/warga', function () {
     return view('warga.index');
 });
+
+Route::get('/berita-kota', function () {
+    return view('berita-kota.index');
+});
