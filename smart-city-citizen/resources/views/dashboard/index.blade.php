@@ -21,25 +21,28 @@
             <strong>{{ $totalWarga }}</strong>
         </article>
         <article class="panel stat-card">
+            <span>Total Petugas</span>
+            <strong>{{ $totalPetugas }}</strong>
+        </article>
+        <article class="panel stat-card">
             <span>Modul Aktif</span>
-            <strong>1</strong>
+            <strong>3</strong>
         </article>
         <article class="panel stat-card">
-            <span>Koneksi DB</span>
-            <strong>OK</strong>
-        </article>
-        <article class="panel stat-card">
-            <span>Status API</span>
-            <strong>REST</strong>
+            <span>Status DB & API</span>
+            <strong>OK / REST</strong>
         </article>
     </section>
 
     <section class="content-grid">
-        <div class="panel hero-band">
+        <div class="panel hero-band full">
             <div>
-                <h2>Smart City Citizen siap untuk layanan data warga.</h2>
-                <p>Gunakan modul warga untuk menambah, mengubah, mencari, dan menghapus data tanpa reload halaman.</p>
-                <a class="button button-primary" href="{{ url('/warga') }}">Kelola Warga</a>
+                <h2>Smart City Citizen siap untuk layanan data warga & petugas.</h2>
+                <p>Kelola data kependudukan dan petugas lapangan kota Anda secara langsung, dinamis, dan terintegrasi tanpa reload halaman.</p>
+                <div class="button-row">
+                    <a class="button button-primary" href="{{ url('/warga') }}">Kelola Warga</a>
+                    <a class="button button-secondary" href="{{ url('/petugas') }}" style="background: rgba(255, 255, 255, 0.25); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.45)">Kelola Petugas</a>
+                </div>
             </div>
         </div>
 
@@ -66,6 +69,35 @@
                         <div>
                             <strong>Belum ada data warga</strong>
                             <p class="muted">Mulai isi data dari Modul Warga.</p>
+                        </div>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <div class="panel panel-pad">
+            <div class="toolbar">
+                <div>
+                    <p class="eyebrow">Data Terbaru</p>
+                    <h2>Petugas terakhir ditambahkan</h2>
+                </div>
+                <span class="badge">{{ $totalPetugas }} data</span>
+            </div>
+
+            <div class="list">
+                @forelse ($petugasTerbaru as $petugas)
+                    <div class="list-item">
+                        <div>
+                            <strong>{{ $petugas->nama }}</strong>
+                            <p class="muted">{{ $petugas->jabatan }}</p>
+                        </div>
+                        <span class="badge">{{ $petugas->nip }}</span>
+                    </div>
+                @empty
+                    <div class="list-item">
+                        <div>
+                            <strong>Belum ada data petugas</strong>
+                            <p class="muted">Mulai isi data dari Modul Petugas.</p>
                         </div>
                     </div>
                 @endforelse
