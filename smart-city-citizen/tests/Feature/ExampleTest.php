@@ -7,6 +7,15 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        if (! extension_loaded('pdo_sqlite')) {
+            $this->markTestSkipped('Ekstensi pdo_sqlite diperlukan untuk test database in-memory.');
+        }
+
+        parent::setUp();
+    }
+
     /**
      * A basic test example.
      */
