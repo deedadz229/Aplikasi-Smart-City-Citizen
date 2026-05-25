@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Warga;
+use App\Models\Petugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -8,11 +9,17 @@ Route::get('/', function () {
     return view('dashboard.index', [
         'totalWarga' => Warga::count(),
         'wargaTerbaru' => Warga::latest()->take(5)->get(),
+        'totalPetugas' => Petugas::count(),
+        'petugasTerbaru' => Petugas::latest()->take(5)->get(),
     ]);
 });
 
 Route::get('/warga', function () {
     return view('warga.index');
+});
+
+Route::get('/petugas', function () {
+    return view('petugas.index');
 });
 
 Route::get('/berita-kota', function () {
