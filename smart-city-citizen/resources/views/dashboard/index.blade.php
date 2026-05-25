@@ -12,6 +12,7 @@
 
         <div class="button-row">
             <a class="button button-primary" href="{{ url('/warga') }}">Buka Data Warga</a>
+            <a class="button button-secondary" href="{{ url('/instansi') }}">Buka Data Instansi</a>
         </div>
     </section>
 
@@ -21,12 +22,12 @@
             <strong>{{ $totalWarga }}</strong>
         </article>
         <article class="panel stat-card">
-            <span>Modul Aktif</span>
-            <strong>1</strong>
+            <span>Total Instansi</span>
+            <strong>{{ $totalInstansi }}</strong>
         </article>
         <article class="panel stat-card">
-            <span>Koneksi DB</span>
-            <strong>OK</strong>
+            <span>Modul Aktif</span>
+            <strong>3</strong>
         </article>
         <article class="panel stat-card">
             <span>Status API</span>

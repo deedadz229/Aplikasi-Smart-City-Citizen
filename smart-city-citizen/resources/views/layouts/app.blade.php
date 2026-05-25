@@ -515,8 +515,10 @@
                 <nav class="nav" aria-label="Navigasi utama">
                     <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}">Dashboard</a>
                     <a href="{{ url('/warga') }}" class="{{ request()->is('warga') ? 'active' : '' }}">Data Warga</a>
+                    <a href="{{ url('/instansi') }}" class="{{ request()->is('instansi') ? 'active' : '' }}">Data Instansi</a>
                     <a href="{{ url('/berita-kota') }}" class="{{ request()->is('berita-kota') ? 'active' : '' }}">Berita Kota</a>
-                    <a href="{{ url('/laporan') }}" class="{{ request()->is('laporan') ? 'active' : '' }}">Laporan</a>
+                    <a href="{{ url('/laporan') }}" class="{{ request()->is('laporan') ? 'active' : '' }}">Laporan Warga</a>
+                    <a href="{{ url('/laporan-instansi') }}" class="{{ request()->is('laporan-instansi') ? 'active' : '' }}">Laporan Instansi</a>
                 </nav>
             </div>
         </header>
