@@ -2,6 +2,7 @@
 
 use App\Models\Warga;
 use App\Models\Instansi;
+use App\Models\Petugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,8 @@ Route::get('/', function () {
         'totalWarga' => Warga::count(),
         'totalInstansi' => Instansi::count(),
         'wargaTerbaru' => Warga::latest()->take(5)->get(),
+        'totalPetugas' => Petugas::count(),
+        'petugasTerbaru' => Petugas::latest()->take(5)->get(),
     ]);
 });
 
@@ -19,6 +22,10 @@ Route::get('/warga', function () {
 
 Route::get('/instansi', function () {
     return view('instansi.index');
+});
+
+Route::get('/petugas', function () {
+    return view('petugas.index');
 });
 
 Route::get('/berita-kota', function () {
