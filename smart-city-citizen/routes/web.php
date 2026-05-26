@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Warga;
+use App\Models\Instansi;
 use App\Models\Petugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard.index', [
         'totalWarga' => Warga::count(),
+        'totalInstansi' => Instansi::count(),
         'wargaTerbaru' => Warga::latest()->take(5)->get(),
         'totalPetugas' => Petugas::count(),
         'petugasTerbaru' => Petugas::latest()->take(5)->get(),
@@ -16,6 +18,10 @@ Route::get('/', function () {
 
 Route::get('/warga', function () {
     return view('warga.index');
+});
+
+Route::get('/instansi', function () {
+    return view('instansi.index');
 });
 
 Route::get('/petugas', function () {
@@ -53,6 +59,40 @@ Route::get('/laporan', function (Request $request) {
     return view('laporan.index', [
         'warga' => $warga,
         'totalWarga' => $warga->count(),
+        'keyword' => $request->keyword,
+        'tanggalAwal' => $request->tanggal_awal,
+        'tanggalAkhir' => $request->tanggal_akhir,
+    ]);
+});
+
+Route::get('/laporan-instansi', function (Request $request) {
+    $query = Instansi::query();
+
+    if ($request->filled('keyword')) {
+        $keyword = $request->keyword;
+
+        $query->where(function ($q) use ($keyword) {
+            $q->where('nama_instansi', 'like', "%{$keyword}%")
+                ->orWhere('kategori', 'like', "%{$keyword}%")
+                ->orWhere('alamat', 'like', "%{$keyword}%")
+                ->orWhere('pimpinan', 'like', "%{$keyword}%")
+                ->orWhere('email', 'like', "%{$keyword}%");
+        });
+    }
+
+    if ($request->filled('tanggal_awal')) {
+        $query->whereDate('created_at', '>=', $request->tanggal_awal);
+    }
+
+    if ($request->filled('tanggal_akhir')) {
+        $query->whereDate('created_at', '<=', $request->tanggal_akhir);
+    }
+
+    $instansi = $query->latest()->get();
+
+    return view('laporan.instansi', [
+        'instansi' => $instansi,
+        'totalInstansi' => $instansi->count(),
         'keyword' => $request->keyword,
         'tanggalAwal' => $request->tanggal_awal,
         'tanggalAkhir' => $request->tanggal_akhir,
