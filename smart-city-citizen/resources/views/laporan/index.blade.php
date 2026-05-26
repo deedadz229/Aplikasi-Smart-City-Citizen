@@ -27,21 +27,21 @@
 
         <article class="panel stat-card">
             <span>Tanggal Awal</span>
-            <strong style="font-size: 18px;">{{ $tanggalAwal ?? '-' }}</strong>
+            <strong class="stat-subvalue">{{ $tanggalAwal ?? '-' }}</strong>
         </article>
 
         <article class="panel stat-card">
             <span>Tanggal Akhir</span>
-            <strong style="font-size: 18px;">{{ $tanggalAkhir ?? '-' }}</strong>
+            <strong class="stat-subvalue">{{ $tanggalAkhir ?? '-' }}</strong>
         </article>
 
         <article class="panel stat-card">
             <span>Status Laporan</span>
-            <strong style="font-size: 18px;">Siap Cetak</strong>
+            <strong class="stat-subvalue">Siap Cetak</strong>
         </article>
     </section>
 
-    <section class="panel panel-pad" style="margin-bottom: 22px;">
+    <section class="panel panel-pad mb-22">
         <p class="eyebrow">Filter Laporan</p>
         <h2>Atur Data yang Ditampilkan</h2>
 
@@ -133,34 +133,4 @@
             </table>
         </div>
     </section>
-
-    <style>
-        @media print {
-            .topbar,
-            .button-row,
-            form,
-            .actions {
-                display: none !important;
-            }
-
-            body {
-                background: #ffffff !important;
-            }
-
-            .page {
-                max-width: 100%;
-                padding: 0;
-            }
-
-            .panel {
-                box-shadow: none;
-                border: 1px solid #dddddd;
-            }
-
-            table {
-                min-width: 100%;
-                font-size: 12px;
-            }
-        }
-    </style>
 @endsection

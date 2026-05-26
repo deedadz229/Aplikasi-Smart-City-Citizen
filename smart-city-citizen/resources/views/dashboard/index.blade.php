@@ -3,6 +3,20 @@
 @section('title', 'Dashboard Smart City Citizen')
 
 @section('content')
+    @php
+        $heroSlides = [
+            file_exists(public_path('images/hero-1.jpg'))
+                ? asset('images/hero-1.jpg')
+                : 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1600&q=80',
+            file_exists(public_path('images/hero-2.jpg'))
+                ? asset('images/hero-2.jpg')
+                : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80',
+            file_exists(public_path('images/hero-3.jpg'))
+                ? asset('images/hero-3.jpg')
+                : 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80',
+        ];
+    @endphp
+
     <section class="page-header">
         <div>
             <p class="eyebrow">Dashboard Pelayanan Warga</p>
@@ -36,14 +50,40 @@
     </section>
 
     <section class="content-grid">
-        <div class="panel hero-band full">
-            <div>
+        <div class="panel hero-band full" data-hero-slider>
+            <div class="hero-slide-track" aria-hidden="true">
+                @foreach ($heroSlides as $index => $slide)
+                    <div
+                        class="hero-slide {{ $index === 0 ? 'is-active' : '' }}"
+                        data-hero-slide="{{ $index }}"
+                    >
+                        <img src="{{ $slide }}" alt="">
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="hero-content">
                 <h2>Smart City Citizen siap untuk layanan data warga & petugas.</h2>
                 <p>Kelola data kependudukan dan petugas lapangan kota Anda secara langsung, dinamis, dan terintegrasi tanpa reload halaman.</p>
                 <div class="button-row">
                     <a class="button button-primary" href="{{ url('/warga') }}">Kelola Warga</a>
-                    <a class="button button-secondary" href="{{ url('/petugas') }}" style="background: rgba(255, 255, 255, 0.25); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.45)">Kelola Petugas</a>
+                    <a class="button button-on-media" href="{{ url('/petugas') }}">Kelola Petugas</a>
                 </div>
+            </div>
+
+            <div class="hero-slider-controls" aria-label="Kontrol gambar utama">
+                <button type="button" class="hero-slider-button" data-hero-prev aria-label="Gambar sebelumnya">&lt;</button>
+                <div class="hero-slider-dots">
+                    @foreach ($heroSlides as $index => $slide)
+                        <button
+                            type="button"
+                            class="hero-slider-dot {{ $index === 0 ? 'is-active' : '' }}"
+                            data-hero-dot="{{ $index }}"
+                            aria-label="Tampilkan gambar {{ $index + 1 }}"
+                        ></button>
+                    @endforeach
+                </div>
+                <button type="button" class="hero-slider-button" data-hero-next aria-label="Gambar berikutnya">&gt;</button>
             </div>
         </div>
 
@@ -105,4 +145,61 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.querySelector('[data-hero-slider]');
+
+            if (! slider) {
+                return;
+            }
+
+            const slides = Array.from(slider.querySelectorAll('[data-hero-slide]'));
+            const dots = Array.from(slider.querySelectorAll('[data-hero-dot]'));
+            const previousButton = slider.querySelector('[data-hero-prev]');
+            const nextButton = slider.querySelector('[data-hero-next]');
+            let activeIndex = 0;
+            let timer = null;
+
+            function showSlide(index) {
+                activeIndex = (index + slides.length) % slides.length;
+
+                slides.forEach(function (slide, slideIndex) {
+                    slide.classList.toggle('is-active', slideIndex === activeIndex);
+                });
+
+                dots.forEach(function (dot, dotIndex) {
+                    dot.classList.toggle('is-active', dotIndex === activeIndex);
+                });
+            }
+
+            function startAutoPlay() {
+                window.clearInterval(timer);
+                timer = window.setInterval(function () {
+                    showSlide(activeIndex + 1);
+                }, 5000);
+            }
+
+            previousButton.addEventListener('click', function () {
+                showSlide(activeIndex - 1);
+                startAutoPlay();
+            });
+
+            nextButton.addEventListener('click', function () {
+                showSlide(activeIndex + 1);
+                startAutoPlay();
+            });
+
+            dots.forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    showSlide(index);
+                    startAutoPlay();
+                });
+            });
+
+            startAutoPlay();
+        });
+    </script>
 @endsection

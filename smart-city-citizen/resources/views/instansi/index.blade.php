@@ -72,7 +72,7 @@
 
                     <div>
                         <label for="status">Status</label>
-                        <select id="status" name="status" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; background: #ffffff; color: #172033; padding: 11px 12px; font: inherit; outline: none;" required>
+                        <select id="status" name="status" required>
                             <option value="Aktif">Aktif</option>
                             <option value="Non-aktif">Non-aktif</option>
                         </select>
@@ -202,16 +202,16 @@
                 const items = filteredItems();
                 const rows = items.map(function (item) {
                     const statusBadge = item.status === 'Aktif'
-                        ? `<span class="badge" style="background: #dcfce7; color: #14532d;">Aktif</span>`
-                        : `<span class="badge" style="background: #fee2e2; color: #7f1d1d;">Non-aktif</span>`;
+                        ? `<span class="badge badge-success">Aktif</span>`
+                        : `<span class="badge badge-danger">Non-aktif</span>`;
 
                     return `
                         <tr>
                             <td data-label="Nama Instansi"><strong>${escapeHtml(item.nama_instansi)}</strong></td>
                             <td data-label="Kategori"><span class="badge">${escapeHtml(item.kategori)}</span></td>
                             <td data-label="Kontak">
-                                <span style="font-size: 13px; display:block;">📞 ${escapeHtml(item.no_telp)}</span>
-                                <span style="font-size: 11px; color: #64748b;">✉ ${escapeHtml(item.email)}</span>
+                                <span class="contact-line">Telp. ${escapeHtml(item.no_telp)}</span>
+                                <span class="contact-subline">${escapeHtml(item.email)}</span>
                             </td>
                             <td data-label="Pimpinan">${escapeHtml(item.pimpinan)}</td>
                             <td data-label="Status">${statusBadge}</td>

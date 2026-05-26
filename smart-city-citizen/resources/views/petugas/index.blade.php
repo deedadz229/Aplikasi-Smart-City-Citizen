@@ -182,7 +182,7 @@
                         <tr>
                             <td data-label="Nama"><strong>${escapeHtml(item.nama)}</strong></td>
                             <td data-label="NIP">${escapeHtml(item.nip)}</td>
-                            <td data-label="Jabatan"><span class="badge" style="background:#eef3f8; color:#0f766e;">${escapeHtml(item.jabatan)}</span></td>
+                            <td data-label="Jabatan"><span class="badge badge-muted">${escapeHtml(item.jabatan)}</span></td>
                             <td data-label="No. HP">${escapeHtml(item.no_hp)}</td>
                             <td data-label="Aksi">
                                 <div class="table-actions">
